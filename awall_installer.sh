@@ -16,6 +16,7 @@ if [ "$(id -u)" -ne 0 ]; then
 exit 1
 fi
 
+
 # 1. Input Collection
 while true; do
     echo
@@ -54,12 +55,11 @@ wget -q "$GH_RAW/optional/http.json" -O /etc/awall/optional/http.json
 
 # Download rules for SSH
 wget -q "$GH_RAW/optional/incoming-ssh.json" -O /etc/awall/optional/incoming-ssh.json
-sed -i "s/__IP_ADDRESS__/$ipaddress/g" /etc/awall/optional/incoming-ssh.json
+sed -i "s|__IP_ADDRESS__|$ipaddress|g" /etc/awall/optional/incoming-ssh.json
 
 # Download rules for custom ports
 wget -q "$GH_RAW/private/custom-ports.json" -O /etc/awall/private/custom-ports.json
 sed -i "s/__SSH_PORT__/$sshport/g" /etc/awall/private/custom-ports.json
-
 
 # 4. Local Services Configuration (doas & SSH)
 # Configure doas
