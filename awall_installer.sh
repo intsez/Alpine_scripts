@@ -16,7 +16,6 @@ if [ "$(id -u)" -ne 0 ]; then
 exit 1
 fi
 
-
 # 1. Input Collection
 while true; do
     echo
@@ -24,7 +23,7 @@ while true; do
     read sysuser
     echo -ne "${RESET}Enter SSH port: ${RED}"
     read sshport
-    echo -ne "${RESET}Allowed SSH IP/CIDR: ${RED}"
+    echo -ne "${RESET}Allowed SSH IP/CIDR (e.g. 192.168.1.0/24): ${RED}"
     read ipaddress
     echo -ne "${RESET}Root login (no/yes/prohibit-password): ${RED}"
     read sshroot
