@@ -8,7 +8,7 @@ chmod +x awall_installer.sh
 ./awall_installer.sh
 ```
 Script functions:
-* awall_installer.sh - this script installs Alpine Wall (firewall), configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services.
+* awall_installer.sh - This script installs Alpine Wall (firewall), doas (like sudo), openssh-server, configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services
 
 
 All default variables are set at the beginning of each script.
