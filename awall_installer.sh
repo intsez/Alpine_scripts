@@ -1,6 +1,5 @@
 #!/bin/sh
 # This script installs Alpine Wall (firewall), configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services
-
 # GitHub Base URL 
 GH_RAW="https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/awall"
 
@@ -8,13 +7,6 @@ GH_RAW="https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/
 GREEN='\e[32m'
 RED='\e[1;31m'
 RESET='\e[0m'
-
-if [ "$(id -u)" -ne 0 ]; then
-    echo
-    echo -e "${RED}Sorry, you need to run this script as a root.${RESET}"
-    echo
-exit 1
-fi
 
 # 1. Input Collection
 while true; do
@@ -63,8 +55,9 @@ sed -i "s/__SSH_PORT__/$sshport/g" /etc/awall/private/custom-ports.json
 
 # 4. Local Services Configuration (doas & SSH)
 # Configure doas
-echo "permit nopass $sysuser as root" > /etc/doas.conf
-chmod 0400 /etc/doas.conf
+mkdir -p /etc/doas.d
+echo "permit nopass $sysuser as root" > /etc/doas.d/99-wheel.conf
+chmod 0400 /etc/doas.conf /etc/doas.d/*.conf
 
 # Configure SSH
 cat <<EOF > /etc/ssh/sshd_config.d/ssh.conf
@@ -72,6 +65,8 @@ Port $sshport
 PermitRootLogin $sshroot
 Match Address $ipaddress
     AllowUsers $sysuser
+PasswordAuthentication yes
+
 EOF
 
 # 6. Iptables activation
@@ -81,7 +76,10 @@ rc-service iptables start && rc-service ip6tables start
 
 # 7. Awall Test, Enable & Activate
 awall enable main incoming-ssh http outgoing stealth
-awall translate --verify && awall activate -f
+awall translate --verify && awall activate -f 
+echo
+echo -e "${GREEN}--- Active policies ---${RESET}"
+awall list
 
 # 8. Persistence (Diskless mode)
 if mount | grep -q "on / type tmpfs"; then
@@ -106,6 +104,5 @@ echo -e "${GREEN}SSH modifications ${RESET}"
 echo -e "  To change SSH policies (port, users, IPs), modify: ${RED}/etc/ssh/sshd_config.d/ssh.conf${RESET}"
 
 echo
-echo -e "Press any key to continue."
+echo -e "Installation complete."
 echo
-read dummy
