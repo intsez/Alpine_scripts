@@ -1,5 +1,5 @@
 #!/bin/sh
-# This script installs Alpine Wall (firewall), configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services
+# This script installs Alpine Wall (firewall),doas (works like sudo and allows a user with privileges to log in as root without a password), openssh-server and configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services.
 # GitHub Base URL 
 GH_RAW="https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/awall"
 
