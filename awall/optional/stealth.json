@@ -1,0 +1,14 @@
+{
+        "description": "Block ping from internet",
+        "filter": [
+                {
+                        "in": "WAN",
+                        "out": "_fw",
+                        "service":
+                        "icmp",
+                        "action": "drop",
+                        "log": true
+
+                }
+        ]
+}
