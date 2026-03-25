@@ -1,0 +1,12 @@
+{
+    "description": "Allow incoming http(tcp/80) and https(tcp/443)",
+    "filter": [
+        {
+            "in": "WAN",
+            "out": "_fw",
+            "service": ["http", "https"],
+            "action": "accept",
+            "log": true
+        }
+    ]
+}
