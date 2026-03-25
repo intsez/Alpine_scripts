@@ -1,5 +1,5 @@
 #!/bin/sh
-# script installs Alpine Wall (firewall), configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services
+# This script installs Alpine Wall (firewall), configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services
 
 # GitHub Base URL 
 GH_RAW="https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/awall"
