@@ -1,0 +1,5 @@
+{
+  "service": {
+    "custom-ssh": { "proto": "tcp", "port": __SSH_PORT__ }
+  }
+}
