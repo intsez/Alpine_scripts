@@ -8,6 +8,14 @@ GREEN='\e[32m'
 RED='\e[1;31m'
 RESET='\e[0m'
 
+if [ "$(id -u)" -ne 0 ]; then
+	echo
+	echo -e "${RED}Sorry, you need to run this script as a root.${RESET}"
+	echo
+exit 1
+fi
+
+
 # 1. Input Collection
 while true; do
     echo
