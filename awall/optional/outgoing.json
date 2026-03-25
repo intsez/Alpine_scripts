@@ -1,0 +1,17 @@
+{
+  "description": "Allow outgoing dns, http, https, ntp and block rest",
+  "filter": [
+    {
+      "in": "_fw",
+      "out": "WAN",
+      "service": [ "dns", "http", "https", "ntp" ],
+      "action": "accept"
+    },
+    {
+      "in": "_fw",
+      "out": "WAN",
+      "action": "drop",
+      "log": true
+    }
+  ]
+}
