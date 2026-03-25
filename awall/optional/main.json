@@ -1,0 +1,11 @@
+{
+        "description": "Drop all incoming traffic from WAN, reject all other",
+        "import": [ "custom-ports" ],
+        "zone": {
+                "WAN": { "iface": "eth0" }
+        },
+        "policy": [
+                { "in": "WAN", "action": "drop" },
+                { "action": "reject" }
+        ]
+}
