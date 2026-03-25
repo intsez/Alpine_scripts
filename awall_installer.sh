@@ -8,6 +8,7 @@ GREEN='\e[32m'
 RED='\e[1;31m'
 RESET='\e[0m'
 
+# Run the script as a root
 if [ "$(id -u)" -ne 0 ]; then
 	echo
 	echo -e "${RED}Sorry, you need to run this script as a root.${RESET}"
