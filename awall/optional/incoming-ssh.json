@@ -1,0 +1,19 @@
+{
+        "description": "Allow incoming SSH on WAN (TCP/10108)",
+        "filter": [
+                {
+                        "in": "WAN",
+                        "out": "_fw",
+                        "src": [ "__IP_ADDRESS__", "192.0.2.1" ],
+                        "action": "accept",
+                        "conn-limit": { "count": 3, "interval": 60 },
+                        "log": true
+                },
+                {
+                        "in": "WAN",
+                        "out": "_fw",
+                        "action": "drop",
+                        "log": true
+                }
+        ]
+}
