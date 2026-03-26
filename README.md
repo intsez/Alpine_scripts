@@ -1,35 +1,46 @@
 ## Usage
 
-Just download and execute selected script :
+Simply download and execute the selected script (all default variables are set at the beginning of each file), e.g.:
+
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/00_all_scripts_downloader.sh
 chmod +x 00_all_scripts_downloader.sh
 ./00_all_scripts_downloader.sh
 ```
-Script functions:
+---
+## Scripts overview
 
-**`awall_installer.sh`** - script installs Alpine Wall (firewall),doas (works like sudo and allows a user with privileges to log in as root without a password), openssh-server and configures SSH access, opens ports for HTTP, HTTPS, DNS, NTP services.
+`00_all_scripts_downloader.sh` - All-in-one installer for web server security and hardening.
+```sh
+wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/00_all_scripts_downloader.sh
+chmod +x 00_all_scripts_downloader.sh
+./00_all_scripts_downloader.sh
+```
+---
+
+`awall_installer.sh` - installs Awall, doas (for passwordless root access), and the OpenSSH server; configures SSH access and opens ports for HTTP(S), DNS, and NTP.
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/awall_installer.sh
 chmod +x awall_installer.sh
 ./awall_installer.sh
 ```
+---
 
-**`metalog_installer.sh`** - script installs and configures metalog, a flexible logging system daemon (syslogd/klogd)
+`metalog_installer.sh` - installs and configures Metalog, a flexible logging replacement for syslogd/klogd.
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/metalog_installer.sh
 chmod +x metalog_installer.sh
 ./metalog_installer.sh
 ```
+---
 
-**`sysctl_hardening.sh`** - script reduces the attack surface by optimizing TCP packets, memory utilization, and strengthening protection against SYN flood attacks (DoS/DDoS).
+`sysctl_hardening.sh` - reduces attack surface by optimizing TCP/memory and, among other improvements, strengthening protection against SYN flood (DoS/DDoS) attacks.
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/sysctl_hardening.sh
 chmod +x sysctl_hardening.sh
 ./sysctl_hardening.sh
 ```
-All default variables are set at the beginning of each script.
-
+---
 
 ## LICENSE
 
