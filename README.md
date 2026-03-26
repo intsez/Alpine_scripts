@@ -1,3 +1,7 @@
+## Key Purpose 
+
+These scripts automate the installation of essential software and security hardening on Alpine Linux systems. They offer a fast, lightweight, and robust way to set up a secure environment.
+
 ## Usage
 
 Simply download and execute the selected script (all default variables are set at the beginning of each file), e.g.:
@@ -7,7 +11,8 @@ wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/00_
 chmod +x 00_all_scripts_downloader.sh
 ./00_all_scripts_downloader.sh
 ```
----
+
+
 ## Scripts overview
 
 `00_all_scripts_downloader.sh` - All-in-one installer for web server security and hardening.
