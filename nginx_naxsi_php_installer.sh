@@ -1,4 +1,5 @@
 #!/bin/sh
+# Installs and configures Nginx with NAXSI WAF, integrates Fail2Ban for automated blocking based on NAXSI and Metalog system logs.
 
 # Colors for better readability
 RED='\033[0;31m'
