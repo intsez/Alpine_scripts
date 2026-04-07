@@ -9,7 +9,7 @@ Simply download and execute the selected script (all default variables are set a
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/00_all_scripts_downloader.sh
 chmod +x 00_all_scripts_downloader.sh
-./00_all_scripts_downloader.sh
+sh 00_all_scripts_downloader.sh
 ```
 
 
@@ -19,7 +19,7 @@ chmod +x 00_all_scripts_downloader.sh
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/00_all_scripts_downloader.sh
 chmod +x 00_all_scripts_downloader.sh
-./00_all_scripts_downloader.sh
+sh 00_all_scripts_downloader.sh
 ```
 ---
 
@@ -27,7 +27,7 @@ chmod +x 00_all_scripts_downloader.sh
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/awall_installer.sh
 chmod +x awall_installer.sh
-./awall_installer.sh
+sh awall_installer.sh
 ```
 ---
 
@@ -35,7 +35,7 @@ chmod +x awall_installer.sh
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/metalog_installer.sh
 chmod +x metalog_installer.sh
-./metalog_installer.sh
+sh metalog_installer.sh
 ```
 ---
 
@@ -43,9 +43,19 @@ chmod +x metalog_installer.sh
 ```sh
 wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/sysctl_hardening.sh
 chmod +x sysctl_hardening.sh
-./sysctl_hardening.sh
+sh sysctl_hardening.sh
 ```
 ---
+
+`nginx_naxsi_php_installer.sh` - installs and configures Nginx with NAXSI WAF, PHP-FPM, and integrates Fail2Ban for automated blocking based on NAXSI and Metalog logs.
+```sh
+wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/nginx_naxsi_php_installer.sh
+chmod +x nginx_naxsi_php_installer.sh
+sh nginx_naxsi_php_installer.sh
+```
+---
+
+
 
 ## LICENSE
 
