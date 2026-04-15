@@ -185,7 +185,7 @@ if [ -n "$MISSING_APPS" ]; then
     echo -e " ${RED}Missing software will be installed automatically.${RESET}"
 fi
 echo
-echo -e "${GREEN}--- WordPress setup: provide administrative credentials ---${RESET}"
+echo -e "${GREEN} WordPress setup: provide administrative credentials ---${RESET}"
 while [ -z "$ADMIN_USER" ]; do read -p " Login:  " ADMIN_USER; done
 while true; do
     read -p " E-mail: " ADMIN_EMAIL
@@ -199,7 +199,7 @@ while true; do
     echo -e "${RED} Password mismatch. Try again.${RESET}"
 done
 
-echo -e "\n${GREEN}--- Path verification. Directory listing for /var/www:---${RESET}"
+echo -e "\n${GREEN} Path verification. Directory listing for /var/www:---${RESET}"
 ls -F /var/www 2>/dev/null || echo -e " ${RED}The /var/www directory is empty.${RESET}"
 while true; do
     read -p " Provide absolute path for WordPress: " WP_PATH
@@ -299,8 +299,7 @@ DB_PASS="$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 12)"
 
 mariadb -e "CREATE DATABASE $DB_NAME; CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS'; GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost'; FLUSH PRIVILEGES;"
 
-# WordPress Nginx server block setup
-# Conditional backup of default.conf
+# WordPress Nginx server block setup, conditional backup of default.conf
 BCK_DEFCONF="/etc/nginx/http.d/default.conf"
 if [ -f "$BCK_DEFCONF" ]; then
     DATE_SUFFIX=$(date +%d-%m-%y_%H.%M)
@@ -359,7 +358,6 @@ server {
     }
 }
 EOL
-
 
 # Downlaod NAXSI rules
 echo
@@ -437,6 +435,20 @@ wp core install --url="$CURRENT_IP" --title="WP Alpine" --admin_user="$ADMIN_USE
 rc-service php-fpm$PHP_VER restart
 rc-service nginx restart
 
+# Download some extra security rules for WordPress
+echo
+echo -e "${GREEN} Downloading some extra security rules for WordPress ...${RESET}"
+BCK_WPCONFIG="$WP_PATH/wp-config.php"
+if [ -f "$BCK_WPCONFIG" ]; then
+    DATE_SUFFIX=$(date +%d-%m-%y_%H.%M)
+    cp "$BCK_WPCONFIG" "${BCK_WPCONFIG%.php}.bck-$DATE_SUFFIX"
+	echo -e " ${RED}Backup created $WP_PATH/wp-config.php.bck-$DATE_SUFFIX${RESET}"
+	echo
+fi
+curl -sL https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/wordpress/wp-config-rules.conf >> $WP_PATH/wp-config.php
+mkdir -p /etc/nginx/conf.d/
+curl -L -o /etc/nginx/conf.d/wpnx-restr.rules https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/wordpress/wpnx-restr.conf
+
 # Custom NAXSI error page
 [ ! -f "$WP_PATH/wp-content/naxsi_error.html" ] && echo "<html><body><h1>Access Denied</h1></body></html>" > "$WP_PATH/wp-content/naxsi_error.html"
 
@@ -470,8 +482,11 @@ if [ "$SECMDB" = "y" ]; then
     echo ""
 fi
 echo
-echo -e "${GREEN} NAXSI is running in ${CYAN}Learning mode ${RED}(non-blocking)${RESET} \n   > /etc/nginx/http.d/wordpress.conf <"
-echo -e "${GREEN} Admin dashboard:${RESET} ${CYAN}http://$CURRENT_IP/wp-admin${RESET}"
+echo -e " ${GREEN}Additional WP settings${RESET} added to: ${RESET}$WP_PATH/${GREEN}wp-config.php ${RED}(disabled)${RESET}.\n ${GREEN}Additional Nginx rules${RESET} saved in: ${RESET}/etc/nginx/conf.d/${GREEN}wpnx-restr.rules\n ${RESET}To activate, ${CYAN}modify${GREEN} wp-config.php ${RESET}and ${CYAN}rename${RESET} ${GREEN}*.rules${RESET} file to ${GREEN}*.conf${RESET},\n then ${CYAN}restart ${RESET}Nginx. ${RED}Note: Changes may result in site lockout.${RESET}"
+echo
+echo -e "${GREEN} NAXSI is running in ${RED}Learning mode (non-blocking)${RESET} \n To change this ${CYAN}modify${RESET}: /etc/nginx/http.d/${GREEN}wordpress.conf${RESET} then ${CYAN}restart ${RESET}Nginx."
+echo
+echo -e " Admin dashboard: ${GREEN}http://$CURRENT_IP/wp-admin${RESET}"
 echo
 echo -e "${GREEN}--- SETUP COMPLETE ---${RESET}"
 echo
