@@ -55,7 +55,13 @@ sh nginx_naxsi_php_installer.sh
 ```
 ---
 
-
+`wordpress_installer.sh` - Automated WordPress deployment on an Alpine-based LEMP stack, featuring NAXSI WAF and a hardened security suite (fail2ban, metalog, logrotate, ipsec...)"
+```sh
+wget https://raw.githubusercontent.com/intsez/Alpine_scripts/refs/heads/main/wordpress_installer.sh
+chmod +x wordpress_installer.sh
+sh wordpress_installer.sh
+```
+---
 
 ## LICENSE
 
